@@ -1,0 +1,472 @@
+/* Design System: Formula Racing Championship Analytics */
+/* "A race programme you can interact with." — design.md */
+
+:root {
+  /* Neutrals */
+  --bg: #F7F6F2;
+  --surface: #FFFFFF;
+  --surface-2: #EFEDE7;
+  --line: #DDD9CE;
+  --line-strong: #B9B4A6;
+  --ink: #14141A;
+  --ink-2: #3A3A44;
+  --ink-3: #6B6B76;
+
+  /* Accent and Status */
+  --red: #D90500;
+  --red-dark: #A80400;
+  --red-tint: #FDECEB;
+  --ok: #0B7A3B;
+  --warn: #9A5B00;
+  --warn-tint: #FFF3D6;
+  --fl: #6E2FD0;
+
+  /* Fonts */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Sizing, Radius & Rules */
+  --radius: 3px;
+  --rule: 3px solid var(--ink);
+  --hairline: 1px solid var(--line);
+  --shadow-hard: 3px 3px 0 var(--ink);
+  --shadow-hover: 4px 4px 0 var(--ink);
+  --focus: 2px solid var(--ink);
+  --row-h: 44px;
+
+  /* Tyre compounds */
+  --tyre-soft: #E8002D;
+  --tyre-medium: #F2B800;
+  --tyre-hard: #FFFFFF;
+  --tyre-inter: #1E9E4A;
+  --tyre-wet: #2B6FD6;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink-2);
+  font: 15px/1.5 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.num, .font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: var(--radius);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+/* Kerb Strip Divider (Dashboard only, 6px repeating diagonal) */
+.kerb-strip {
+  height: 6px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--red),
+    var(--red) 12px,
+    #FFFFFF 12px,
+    #FFFFFF 24px
+  );
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Section Rule (3px ink line) */
+.section-rule {
+  border: none;
+  border-top: var(--rule);
+  margin-bottom: 8px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+  transition: all 120ms ease-out;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.btn:focus-visible {
+  outline: var(--focus);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--red);
+  color: #FFFFFF;
+  border-color: var(--red);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: var(--red-dark);
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-2);
+  border-color: var(--ink);
+}
+
+.btn-danger {
+  background: var(--red-tint);
+  color: var(--red-dark);
+  border: 1px solid #F5C6C6;
+}
+
+.btn-danger:hover {
+  background: var(--red);
+  color: #FFFFFF;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+
+/* Form Controls */
+.input-field, .select-field {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 120ms ease-out;
+  width: 100%;
+}
+
+.input-field:focus, .select-field:focus {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+/* Stat Tile (Flat white box, 1px border, large mono value, max 4 per row) */
+.stat-tile {
+  background: var(--surface);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 120ms ease-out, transform 120ms ease-out;
+}
+
+.stat-tile:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-hard);
+  transform: translate(-1px, -1px);
+}
+
+.stat-tile-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+}
+
+.stat-tile-val {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  margin: 6px 0 2px 0;
+  line-height: 1.1;
+}
+
+.stat-tile-context {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+/* Timing Sheet Data Table */
+.data-table-container {
+  background: var(--surface);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.data-table th {
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ink);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  white-space: nowrap;
+  height: var(--row-h);
+  vertical-align: middle;
+}
+
+.data-table tbody tr {
+  transition: background-color 100ms ease-out;
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--surface-2);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table td.num, .data-table th.num {
+  text-align: right;
+}
+
+/* Position Badge (P1-P3 get ink fill with white text, others hairline outline) */
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 2px;
+  line-height: 1;
+}
+
+.pos-p1 {
+  background: var(--ink);
+  color: #FFFFFF;
+}
+
+.pos-p2 {
+  background: #3A3A44;
+  color: #FFFFFF;
+}
+
+.pos-p3 {
+  background: #5A5A66;
+  color: #FFFFFF;
+}
+
+.pos-other {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+/* Driver Number Chip (mono number in 1px ink-outlined rectangle) */
+.driver-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 2px;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Fastest Lap Tag (FL in purple) */
+.fl-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  background: #F3ECFB;
+  color: var(--fl);
+  border: 1px solid #D8C3F5;
+  border-radius: 2px;
+}
+
+/* Status Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.chip-ok {
+  background: #E8F5EE;
+  color: var(--ok);
+  border: 1px solid #B6E2C8;
+}
+
+.chip-scheduled {
+  background: var(--surface);
+  color: var(--ink-3);
+  border: 1px solid var(--line-strong);
+}
+
+.chip-red {
+  background: var(--red-tint);
+  color: var(--red);
+  border: 1px solid #F8C6C4;
+}
+
+.chip-warn {
+  background: var(--warn-tint);
+  color: var(--warn);
+  border: 1px solid #FDE49E;
+}
+
+/* Tyre Dots (dot + text label, never color alone) */
+.tyre-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tyre-dot.soft { background: var(--tyre-soft); }
+.tyre-dot.medium { background: var(--tyre-medium); }
+.tyre-dot.hard { background: var(--tyre-hard); border: 2px solid var(--ink); }
+.tyre-dot.inter { background: var(--tyre-inter); }
+.tyre-dot.wet { background: var(--tyre-wet); }
+
+/* Team Accent Bar (4px left bar) */
+.team-bar {
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  border-radius: 1px;
+  vertical-align: middle;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* Sample Data Badge in Topbar */
+.sample-data-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 2px;
+  text-transform: uppercase;
+  cursor: help;
+}
+
+/* Cards & Panels */
+.panel-box {
+  background: var(--surface);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* Hover Marker (yellow marker underline) */
+.hover-marker {
+  transition: background 120ms ease-out;
+}
+.hover-marker:hover {
+  background: linear-gradient(transparent 60%, #FFEB80 60%);
+}
