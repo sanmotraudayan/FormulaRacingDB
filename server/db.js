@@ -3,18 +3,22 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
 const dbConfig = {
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '2810',
-  database: process.env.DB_NAME || 'formularacingdb',
-  port: parseInt(process.env.DB_PORT || '3306', 10),
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME || 'FormulaRacingDB',
+  port: Number(process.env.DB_PORT || 3306),
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
   decimalNumbers: true,
-  ssl: process.env.DB_SSL === 'true' || process.env.DB_HOST?.includes('aivencloud.com') ? { rejectUnauthorized: false } : undefined
+  ssl: process.env.DB_SSL === 'true'
+    ? { rejectUnauthorized: true }
+    : undefined,
 };
+
 
 export const pool = mysql.createPool(dbConfig);
 
