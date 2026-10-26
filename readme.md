@@ -1,245 +1,264 @@
-Formula Racing Championship Management and Analytics Database System
-Project Overview
-This is an RDBMS mini project for managing and analyzing a Formula-style
-racing championship. The database uses MySQL and contains 15 related
-tables for championship seasons, teams, drivers, cars, circuits, races,
-race results, lap timings, tyre compounds, pit stops, penalties,
-sponsors, and race incidents.
+# 🏎️ Formula Racing Championship Management & Analytics Database System
 
-The current goal is to build a polished, interactive frontend using
-React and JavaScript. The UI should make the database easy to explore
-through a motorsport analytics dashboard.
+A full-stack web application for managing and analyzing a Formula Racing Championship. The system provides centralized management of teams, drivers, cars, circuits, races, race results, lap timings, pit stops, penalties, sponsors, and race incidents through an interactive dashboard backed by a MySQL relational database.
 
-Data note: sample race, lap, and performance records may be
-synthetic demonstration data. Do not present them as official racing
-results or telemetry.
-Goals
-- Display championship, team, driver, circuit, and race information.
-- Show driver and constructor standings by season.
-- Explore race results, lap times, fastest laps, pit stops, tyres,
-  penalties, sponsors, and incidents.
-- Provide useful search, sorting, filters, and detail views.
-- Keep the frontend ready for future API integration.
-- Reflect the database schema and relationships; do not add unrelated
-  features.
-Technology
-- Frontend: React + JavaScript + CSS
-- Database: MySQL
-The browser frontend should not connect directly to MySQL. If a
-backend API is not available yet, keep sample data in a separate
-mock-data/service module so it can later be replaced by API calls.
-Database Tables
-  Table                               Purpose
-  Championship                      Season year, championship name, and
-                                      status
+## 🌐 Live Demo
 
-  Team                              Team details, base country,
-                                      principal, and founding year
+**Website:** [Formula Racing Championship DB](https://formula-racing-db.vercel.app/)
 
-  Driver                            Driver identity, nationality, date
-                                      of birth, and driver number
+> **Note:** The application uses demonstration data and is not an official Formula 1 results or telemetry platform.
 
-  TeamDriver                        Driver/team assignment for a
-                                      championship season
+---
 
-  Car                               Car number, model, engine
-                                      manufacturer, and owning team
+## 📌 Project Overview
 
-  Circuit                           Circuit name, country, city,
-                                      length, and number of turns
+The Formula Racing Championship Management and Analytics Database System is a database-driven application designed to demonstrate the practical implementation of Relational Database Management System (RDBMS) concepts through a real-world motorsport scenario.
 
-  Race                              Championship round, circuit, date,
-                                      scheduled laps, and status
+The application combines a React-based frontend, a Node.js and Express REST API, and a MySQL database to provide an integrated platform for managing championship information and exploring racing statistics.
 
-  RaceResult                        Driver result, team, car, position,
-                                      points, and status
+### Objectives
 
-  Lap                               Lap number, lap time, and
-                                      fastest-lap flag
+- Design and implement a normalized relational database.
+- Maintain relationships between championships, teams, drivers, races, and results.
+- Perform CRUD operations through a web-based interface.
+- Retrieve and analyze racing data using SQL queries.
+- Demonstrate primary keys, foreign keys, joins, constraints, and database relationships.
+- Deploy a full-stack application with a remotely hosted database.
 
-  TyreCompound                      Tyre compound name and category
+## ✨ Features
 
-  PitStop                           Pit-stop lap, duration, and tyre
-                                      compound
+- **Championship Dashboard** — Overview of teams, drivers, circuits, races, and championship statistics.
+- **Standings** — View driver and constructor championship standings.
+- **Team Management** — Manage teams, cars, and associated information.
+- **Driver Management** — Add, view, update, and delete driver records.
+- **Race and Circuit Management** — Maintain race schedules, circuits, and championship information.
+- **Race Results** — Store and manage race results and finishing positions.
+- **Lap Performance** — Track lap-level timing information.
+- **Pit Stop Analytics** — Manage pit stops and tyre compound information.
+- **Penalties and Incidents** — Record penalties and race incidents.
+- **Sponsor Management** — Maintain sponsor information and team sponsorship relationships.
+- **Search** — Search relevant championship entities through the interface.
+- **REST API** — Communicate between the frontend and backend using HTTP requests.
+- **Persistent Storage** — Store application records in MySQL rather than relying only on browser state.
 
-  Penalty                           Penalty type, description, time
-                                      penalty, and position penalty
+*The availability of individual operations depends on the implemented API routes and interface.*
 
-  Sponsor                           Sponsor name, industry, and country
+## 🛠️ Tech Stack
 
-  TeamSponsor                       Team-sponsor association by
-                                      championship season and sponsorship
-                                      amount
+| Technology | Purpose |
+|---|---|
+| React.js | Frontend user interface |
+| JavaScript | Application logic |
+| Vite | Development server and production build |
+| Node.js | Backend runtime |
+| Express.js | REST API and server-side routing |
+| MySQL | Relational database |
+| MySQL2 | MySQL connectivity from Node.js |
+| dotenv | Environment variable configuration |
+| CORS | Cross-origin API access |
+| Aiven | Managed MySQL database hosting |
+| Render | Backend API hosting |
+| Vercel | Frontend deployment |
+| Git & GitHub | Version control and source code hosting |
 
-  RaceIncident                      Incident, optional related result,
-                                      lap number, description, and
-                                  safety-car flag
-Relationships
-- A championship contains multiple races; each race is held at a
-  circuit.
-- Teams have cars.
-- TeamDriver records the team a driver belongs to in a particular
-  championship season.
-- RaceResult links a race, driver, team, and optionally a car.
-- A result can have multiple lap records and may have pit stops and
-  penalties.
-- Pit stops reference a tyre compound.
-- TeamSponsor links teams and sponsors for a championship season.
-- Race incidents belong to a race and may optionally reference a race
-  result.
-Suggested Pages
-1. Dashboard
-Show the selected season, counts of teams/drivers/circuits/races, recent
-or completed race results, top drivers, and a constructor standings
-preview. Only show "upcoming" or "next race" information if the dataset
-supports it.
-2. Championship Standings
-- Driver and constructor standings by season
-- Points and race wins; podiums only if they can be calculated
-  reliably
-- Season selector, search, sorting, and clear tie handling
-3. Teams
-Team list and detail view with country, principal, drivers, cars, and
-sponsors.
-4. Drivers
-Driver list and detail view with number, nationality, season team,
-points, and race results.
-5. Races and Circuits
-Race calendar by round, date, circuit, location, scheduled laps, and
-status. Include circuit length and turn count.
-6. Race Results
-Finishing position, driver, team, points, and result status. Filter by
-season, race, team, or driver.
-7. Lap Performance
-Lap number and time by driver/race, fastest-lap indication, and optional
-comparison when enough data exists.
-8. Pit Stops and Tyres
-Pit-stop lap, duration, tyre compound, and filters by race, driver, or
-team. Show averages only when the data supports them.
-9. Penalties and Incidents
-Show penalty type and penalties applied; display incident details, lap
-number, and safety-car deployment.
-10. Sponsors
-Sponsor information, associated teams/seasons, and sponsorship amount.
-Confirm the currency before displaying currency symbols.
-UI/UX Direction
-Build a polished motorsport analytics product, not a generic admin
-template.
-- Use a restrained black, white, charcoal, and red accent palette.
-- Use readable typography, strong hierarchy, consistent spacing, and
-  clear alignment.
-- Keep tables and standings highly legible.
-- Use racing-inspired details sparingly: race numbers, status
-  indicators, and subtle track motifs.
-- Make layouts responsive for desktop, tablet, and mobile.
-- Provide loading, empty, and error states.
-- Include accessible labels, keyboard focus states, and sufficient
-  contrast.
-- Avoid excessive gradients, oversized rounded cards, decorative
-  charts, excessive animation, and visual clutter.
-- Keep the UI dense enough for real data, but not cramped.
-Suggested Project Structure
-Adapt this to the existing repository; do not replace working code
-unnecessarily.
-src/
-  components/
-    layout/
-    ui/
-    tables/
-    charts/
-  pages/
-    Dashboard.jsx
-    Standings.jsx
-    Teams.jsx
-    Drivers.jsx
-    Races.jsx
-    RaceResults.jsx
-    LapPerformance.jsx
-    PitStops.jsx
-    PenaltiesIncidents.jsx
-    Sponsors.jsx
-  services/
-    api.js
-    mockData.js
-  hooks/
-  utils/
-  styles/
-  App.jsx
-  main.jsx
-- Keep mock data in services/mockData.js or a similar isolated
-  module.
-- Put network requests in services/api.js.
-- Keep data access separate from presentation.
-- Avoid duplicating derived points and standings across components.
-- Do not put database credentials or secrets in frontend code.
-- Do not claim MySQL connectivity unless a backend API exists and has
-  been tested.
-Future API Shape (Proposed Only)
-These are suggestions for a future backend, not implemented endpoints:
-GET /api/championships
-GET /api/championships/:id/driver-standings
-GET /api/championships/:id/constructor-standings
-GET /api/teams
-GET /api/teams/:id
-GET /api/drivers
-GET /api/drivers/:id
-GET /api/races
-GET /api/races/:id/results
-GET /api/races/:id/laps
-GET /api/pit-stops
-GET /api/penalties
-GET /api/incidents
-GET /api/sponsors
-Business Rules
-- Driver/team assignment is season-specific and should be based on
-  TeamDriver.
-- A driver should have at most one result per race, as represented by
-  the database constraint.
-- Standings must be grouped by championship season.
-- Constructor points should be calculated from the race results for
-  that team in the selected season.
-- Do not invent missing race data, results, points, or upcoming
-  events.
-- Do not treat a fastest-lap flag as verified telemetry without
-  validating the recorded lap times.
-- Clearly label synthetic/sample data.
-## Running the Project
-The application is fully synchronized with the local MySQL 8.0 database (`formularacingdb`).
+## 🏗️ System Architecture
 
-### Prerequisites
-- Node.js (v18+) & npm (v9+)
-- MySQL Server 8.0 running on `localhost:3306` with database `formularacingdb`
-
-### Commands
-1. **Start Full-Stack App (Backend API + React Frontend)**:
-   ```bash
-   npm run dev
-   ```
-   - **Frontend UI**: [http://localhost:3000](http://localhost:3000)
-   - **Backend REST API**: [http://localhost:5000](http://localhost:5000)
-   - **API Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
-
-2. **Run Individual Services**:
-   - Backend Only: `npm run server`
-   - Frontend Only: `npm run client`
-   - Production Build: `npm run build`
-
-### Database Configuration (`.env`)
-```env
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=2810
-DB_NAME=formularacingdb
-DB_PORT=3306
-PORT=5000
+```text
+                  User / Browser
+                        |
+                        v
+              React + Vite Frontend
+                   (Vercel)
+                        |
+                  HTTPS REST API
+                        |
+                        v
+                Node.js + Express
+                    (Render)
+                        |
+                   MySQL2 + SSL
+                        |
+                        v
+                  MySQL Database
+                     (Aiven)
 ```
 
-### Implemented Features & End-Term Evaluation Criteria
-- **Live MySQL Synchronization**: All 18 database relations (15 tables + 3 views: `driverstandings`, `constructorstandings`, `pitstopanalytics`) are connected in real-time.
-- **Full CRUD Support**: Add, Edit, and Delete operations for Drivers, Teams, Cars, Circuits, Races, Results, Laps, Pit Stops, Penalties, Incidents, and Sponsors directly execute SQL transactions and update database records.
-- **Motorsport Design Aesthetics**: Built strictly according to `design.md`:
-  - Deep Navy-Black Base (`#15151E`) & Surfaces (`#1F1F2B`)
-  - Hot F1 Red Accent (`#E10600`) adhering to the 10% screen rule
-  - Functional timing colors: Fastest Lap Purple Sector (`#A855F7`), Personal Best Green (`#22C55E`), Warning Yellow (`#FACC15`), Tyre Compounds (Soft `#FF3333`, Medium `#FFD12E`, Hard `#F0F0F0`, Intermediate `#10B981`, Wet `#3B82F6`)
-  - Authentic typography: `Barlow Condensed`, `Inter`, and `JetBrains Mono`
-- **Interactive Database Studio**: Built-in visual schema explorer allowing live inspection of all 18 tables and views with column metadata, key definitions, and real-time search.
+The frontend sends requests to the Express backend. The backend validates and processes requests, executes SQL queries against the Aiven MySQL database, and returns responses to the frontend.
+
+The database credentials and SSL configuration are maintained on the backend and are not exposed as frontend secrets.
+
+## 🗄️ Database Design
+
+The database is named `FormulaRacingDB` and contains the following core tables and supporting database objects.
+
+| Table | Purpose |
+|---|---|
+| `Championship` | Championship and season information |
+| `Team` | Racing team records |
+| `Driver` | Driver information |
+| `TeamDriver` | Team-driver assignments by championship |
+| `Car` | Cars associated with teams |
+| `Circuit` | Racing circuit information |
+| `Race` | Race schedules and status |
+| `RaceResult` | Driver and team race results |
+| `Lap` | Lap timing records |
+| `TyreCompound` | Tyre compound information |
+| `PitStop` | Pit stop records |
+| `Penalty` | Race penalties |
+| `Sponsor` | Sponsor information |
+| `TeamSponsor` | Team sponsorship relationships |
+| `RaceIncident` | Incidents recorded during races |
+
+The project also includes supporting database objects visible in the development environment, such as constructor standings, driver standings, and pit stop analytics objects. Their exact implementation depends on the SQL definitions in the repository.
+
+### Key Relationships
+
+- A championship can contain multiple races.
+- Each race is associated with a circuit.
+- Teams can have multiple cars.
+- `TeamDriver` connects drivers and teams across championship seasons.
+- `RaceResult` associates race results with drivers and teams.
+- Lap timings, pit stops, and penalties are associated with race-result records.
+- Pit stops reference tyre compounds.
+- `TeamSponsor` connects teams, sponsors, and championships.
+- Race incidents are associated with races and may reference a race result.
+
+These relationships demonstrate the use of primary keys, foreign keys, and referential integrity in a relational database.
+
+## 🚀 Getting Started
+
+Follow these steps to run the application locally.
+
+### Prerequisites
+
+Install the following software:
+
+- [Node.js](https://nodejs.org/) — preferably a current LTS version.
+- npm — included with Node.js.
+- [MySQL Server](https://dev.mysql.com/downloads/mysql/) or access to a compatible hosted MySQL instance.
+- [Git](https://git-scm.com/).
+- A code editor such as VS Code or Antigravity.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/sanmotraudayan/FormulaRacingDB.git
+cd FormulaRacingDB
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+This installs the project's frontend and backend dependencies from the root `package.json`.
+
+### 3. Configure the Database
+
+Start your local MySQL server and create the database:
+
+```sql
+CREATE DATABASE FormulaRacingDB;
+```
+
+Import the supplied SQL dump using MySQL Workbench or the MySQL command-line client. For example, if the dump is named `Dump20261022.sql`:
+
+```bash
+mysql -u root -p FormulaRacingDB < Dump20261022.sql
+```
+
+Replace the filename with the actual SQL dump available in your repository. If the dump contains schema-creation statements or has already been imported, check its contents before importing again.
+
+### 4. Configure Environment Variables
+
+Create a `.env` file in the project root for local development:
+
+```env
+# Backend
+PORT=5000
+
+# Local MySQL connection
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_local_mysql_password
+DB_NAME=FormulaRacingDB
+DB_SSL=false
+```
+
+Replace `your_local_mysql_password` with your own local MySQL password.
+
+**Security:** Never commit `.env` files, database passwords, private certificates, or other credentials to GitHub. The repository's `.gitignore` should continue excluding `.env` and related secret files.
+
+### 5. Start the Development Environment
+
+Run both the backend API and frontend development server:
+
+```bash
+npm run dev
+```
+
+The root development script uses `concurrently` to start the backend and frontend together.
+
+Open the local frontend at:
+
+**http://localhost:3000**
+
+The backend API runs on port `5000` by default.
+
+### 6. Run the Backend and Frontend Separately
+
+To run only the backend:
+
+```bash
+npm run server
+```
+
+To run only the frontend:
+
+```bash
+npm run client
+```
+
+Start the backend in one terminal and the frontend in another terminal when running them separately.
+
+## 🔐 Security Considerations
+
+- Keep database credentials in environment variables.
+- Keep `.env` and private certificate files out of Git.
+- Use verified SSL when connecting to the hosted database.
+- Never expose MySQL credentials through `VITE_` frontend variables.
+- Restrict production database access and review API authorization requirements before using real or sensitive data.
+- Treat the application as a demonstration project unless appropriate authentication, authorization, validation, and operational safeguards have been implemented.
+
+## 📚 Learning Outcomes
+
+This project provides practical experience with:
+
+- Relational database design and normalization.
+- Primary keys, foreign keys, and integrity constraints.
+- SQL queries, joins, filtering, and aggregation.
+- CRUD operations and REST API design.
+- Frontend-backend integration.
+- Database connectivity from Node.js.
+- Environment-based configuration and SSL.
+- Full-stack deployment using GitHub, Vercel, Render, and Aiven.
+
+## 🔮 Future Enhancements
+
+- Authentication and role-based access control.
+- Advanced championship analytics and visualizations.
+- More comprehensive data validation and error handling.
+- Pagination, filtering, and sorting for large datasets.
+- Automated database backups and migration management.
+- Automated tests for API routes and database operations.
+- Improved query performance through indexing and query optimization.
+
+## 👨‍💻 Author
+
+**Repository:** [sanmotraudayan/FormulaRacingDB](https://github.com/sanmotraudayan/FormulaRacingDB)
+
+## 📄 License
+
+No license is specified here. Add a `LICENSE` file and update this section if you intend to distribute the project under a particular open-source license.
