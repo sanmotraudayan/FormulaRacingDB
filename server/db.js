@@ -1,7 +1,9 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
+import fs from 'node:fs';
 
 dotenv.config();
+
 
 
 const dbConfig = {
@@ -15,9 +17,13 @@ const dbConfig = {
   queueLimit: 0,
   decimalNumbers: true,
   ssl: process.env.DB_SSL === 'true'
-    ? { rejectUnauthorized: true }
+    ? {
+      ca: fs.readFileSync('/etc/secrets/ca.pem', 'utf8'),
+      rejectUnauthorized: true,
+    }
     : undefined,
 };
+
 
 
 export const pool = mysql.createPool(dbConfig);
