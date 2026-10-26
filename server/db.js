@@ -12,7 +12,8 @@ const dbConfig = {
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  decimalNumbers: true
+  decimalNumbers: true,
+  ssl: process.env.DB_SSL === 'true' || process.env.DB_HOST?.includes('aivencloud.com') ? { rejectUnauthorized: false } : undefined
 };
 
 export const pool = mysql.createPool(dbConfig);
